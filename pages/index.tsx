@@ -1,6 +1,4 @@
-import styles from '../styles/Home.module.css';
-
 export default function Home() {
-  return <div className={styles.container}>Welcome to my blog!</div>;
+  return <div className="text-red-600">Welcome to my blog!</div>;
 }
 
