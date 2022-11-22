@@ -1,15 +1,15 @@
 import Head from 'next/head';
 import Image from 'next/image';
 
-import { TPost } from '../types';
+import { TPostPreview } from '../types';
 import mainImg from '../public/main-img.jpg';
-import Posts from '../components/Posts';
+import Previews from '../components/Previews';
 
 interface HomeProps {
-  posts: TPost[];
+  previews: TPostPreview[];
 }
 
-export default function Home({ posts }: HomeProps) {
+export default function Home({ previews }: HomeProps) {
   return (
     <div className="p-8">
       <Head>
@@ -31,18 +31,21 @@ export default function Home({ posts }: HomeProps) {
         </p>
       </div>
 
-      <Posts posts={posts} />
+      <Previews previews={previews} />
     </div>
   );
 }
 
 export async function getServerSideProps() {
-  const response = await fetch('https://dummyjson.com/products');
-  const { products: data } = await response.json();
-
   return {
     props: {
-      posts: data,
+      previews: [
+        {
+          id: 1,
+          title: 'Hello world!',
+          description: 'This is a new world',
+        },
+      ],
     },
   };
 }

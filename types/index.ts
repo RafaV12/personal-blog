@@ -7,4 +7,6 @@ export type TPost = {
   tags?: string;
 };
 
+export type TPostPreview = Omit<TPost, 'text'>;
+
 export {};
