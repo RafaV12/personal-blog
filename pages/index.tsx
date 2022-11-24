@@ -1,5 +1,7 @@
 import Head from 'next/head';
 import Image from 'next/image';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../firebase';
 
 import { TPostPreview } from '../types';
 import mainImg from '../public/main-img.jpg';
@@ -37,15 +39,23 @@ export default function Home({ previews }: HomeProps) {
 }
 
 export async function getServerSideProps() {
+  let previews: TPostPreview[] = [];
+  const querySnapshot = await getDocs(collection(db, 'posts'));
+  querySnapshot.forEach((doc) => {
+    // Normalize doc to be of type 'TPostPreview' and push to 'previews' array
+    let { title, description, tags } = doc.data();
+    let preview: TPostPreview = {
+      id: doc.id,
+      title,
+      description,
+      tags,
+    };
+    previews.push(preview);
+  });
+
   return {
     props: {
-      previews: [
-        {
-          id: 1,
-          title: 'Hello world!',
-          description: 'This is a new world',
-        },
-      ],
+      previews,
     },
   };
 }

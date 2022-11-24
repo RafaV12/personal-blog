@@ -1,23 +1,25 @@
 import Head from 'next/head';
-import React, { SyntheticEvent, useState } from 'react';
+import React, { SyntheticEvent, useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 import { TPost } from '../../types/index';
+import { useAuthContext } from '../../context/authContext';
 
 export default function Dashboard() {
   const [postValues, setPostValues] = useState<TPost>({
-    id: 0,
+    id: '',
     title: '',
     description: '',
     text: '',
-    image: '',
     tags: '',
   });
+
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
     setPostValues({ ...postValues, [e.currentTarget.name]: e.currentTarget.value });
   };
 
-  const onSubmit = (e: SyntheticEvent) => {
+  const onSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
   };
 
