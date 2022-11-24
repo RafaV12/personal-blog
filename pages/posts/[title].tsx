@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { doc, getDoc } from 'firebase/firestore';
+import { collection, query, where, getDocs } from 'firebase/firestore';
 
 import { TPost } from '../../types';
 import { db } from '../../firebase';
@@ -33,28 +33,35 @@ export default function Post({ post }: PostProps) {
 }
 
 export async function getServerSideProps(context: any) {
-  const id: TPost['id'] = context.query.post;
+  let title: TPost['title'] = context.query.title;
+  // We get the title formated with dashes from the url query i.e: '/posts/Title-to-post'
+  // Take the dashes out so we can search for it in the database
+  title = title.replaceAll('-', ' ');
+  let post;
 
-  const docRef = doc(db, 'posts', id);
-  const docSnap = await getDoc(docRef);
+  const q = query(collection(db, 'posts'), where('title', '==', title));
+  try {
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      const { title, description, text } = doc.data();
+      post = {
+        title,
+        description,
+        text,
+      };
+    });
+  } catch (error) {
+    console.log(error);
+  }
 
-  if (docSnap.exists()) {
-    const { title, description, tags, text } = docSnap.data();
-    const post: TPost = {
-      id,
-      title,
-      description,
-      text,
-      tags,
-    };
-
+  if (post) {
     return {
       props: {
         post,
       },
     };
   } else {
-    // Returns empty object (post) if nothing is found
+    // Return an empty object if post does not exist
     return {
       props: {
         post: {},

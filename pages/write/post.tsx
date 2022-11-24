@@ -1,26 +1,27 @@
 import Head from 'next/head';
 import React, { SyntheticEvent, useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { collection, addDoc } from 'firebase/firestore';
 
+import { db } from '../../firebase';
 import { TPost } from '../../types/index';
-import { useAuthContext } from '../../context/authContext';
 
 export default function Dashboard() {
-  const [postValues, setPostValues] = useState<TPost>({
-    id: '',
+  const [post, setPost] = useState<TPost>({
     title: '',
     description: '',
     text: '',
     tags: '',
   });
 
-
   const onChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
-    setPostValues({ ...postValues, [e.currentTarget.name]: e.currentTarget.value });
+    setPost({ ...post, [e.currentTarget.name]: e.currentTarget.value });
   };
 
   const onSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
+    // Add a new document with a generated id.
+    const docRef = await addDoc(collection(db, 'posts'), post);
+    console.log('Document written with ID: ', docRef.id);
   };
 
   return (
@@ -33,7 +34,7 @@ export default function Dashboard() {
       <form className="flex flex-col" onSubmit={onSubmit}>
         <label htmlFor="title">Post Title</label>
         <input
-          value={postValues.title}
+          value={post.title}
           type="text"
           name="title"
           className="p-2 px-3 mt-1 mb-4 border-2 outline-none"
@@ -43,7 +44,7 @@ export default function Dashboard() {
 
         <label htmlFor="description">Post description</label>
         <textarea
-          value={postValues.description}
+          value={post.description}
           name="description"
           className="p-2 px-3 mt-1 mb-4 border-2 resize-none outline-none"
           onChange={onChange}
@@ -52,7 +53,7 @@ export default function Dashboard() {
 
         <label htmlFor="text">Post content</label>
         <textarea
-          value={postValues.text}
+          value={post.text}
           name="text"
           onChange={onChange}
           className="p-2 px-3 mt-1 mb-4 h-40 border-2 resize-none outline-none"
@@ -61,7 +62,7 @@ export default function Dashboard() {
 
         <label htmlFor="title">Post Tags</label>
         <input
-          value={postValues.tags}
+          value={post.tags}
           type="text"
           name="tags"
           className="p-2 px-3 mt-1 mb-4 border-2 outline-none"

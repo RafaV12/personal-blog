@@ -4,11 +4,12 @@ import { TPostPreview } from '../types/index';
 
 type PreviewProps = TPostPreview;
 
-export default function Preview({ id, title, description }: PreviewProps) {
+export default function Preview({ title, description }: PreviewProps) {
   return (
     <article className="mb-8">
       <h2 className="mb-1 text-lg text-slate-900 font-semibold">
-        <Link href={`/posts/${id}`}>{title}</Link>
+        {/* Format the title with dashes instead of spaces for cosmetic purposes */}
+        <Link href={`/posts/${title.replaceAll(' ', '-')}`}>{title}</Link>
       </h2>
       <p className="mb-1 text-zinc-700">{description}</p>
       {/* Tags */}

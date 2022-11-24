@@ -45,7 +45,6 @@ export async function getServerSideProps() {
     // Normalize doc to be of type 'TPostPreview' and push to 'previews' array
     let { title, description, tags } = doc.data();
     let preview: TPostPreview = {
-      id: doc.id,
       title,
       description,
       tags,
