@@ -22,12 +22,8 @@ export default function Home({ previews }: HomeProps) {
 
       {/* Landing page */}
       <div className="pt-20 mb-32 h-screen flex flex-col items-center lg:mb-0 lg:h-screen">
-        <h1 className="mb-4 text-5xl font-semibold italic">The life and research of a person on the Internet.</h1>
-        <p className="text-zinc-700">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat dolor accusamus magni incidunt minima, a corporis, temporibus
-          dolores animi architecto nostrum sed maxime sequi quidem veritatis rem omnis? Magni, nesciunt.
-        </p>
-        <Image className="absolute bottom-10" src={mainImg} alt={'asds'} width={500} height={500}></Image>
+        <h1 className="mb-4 text-5xl font-semibold italic">The life and research of a person on the Internet</h1>
+        <Image className="absolute bottom-0" src={mainImg} alt={'asds'} width={500} height={400}></Image>
       </div>
 
       <Previews previews={previews} />
