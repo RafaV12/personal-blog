@@ -9,7 +9,9 @@ interface PreviewsProps {
 export default function Previews({ previews }: PreviewsProps) {
   return (
     <section className="container flex flex-col">
-      <h2 className="mb-4 text-lg font-semibold">What are my thoughts?</h2>
+      <div className='pb-2 mb-12 border-b-2 border-zinc-700 w-full'>
+        <p className='text-xl'>My posts</p>
+      </div>
 
       {/* Post container */}
       <div>

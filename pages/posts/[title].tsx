@@ -1,10 +1,13 @@
 import Head from 'next/head';
+import Image from 'next/image';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 
 import { TPost } from '../../types';
 import { db } from '../../firebase';
+import testImg from '../../public/test-img.jpg';
+import test from 'node:test';
 
 interface PostProps {
   post: TPost;
@@ -29,12 +32,13 @@ export default function Post({ post }: PostProps) {
         <meta name="description" content="" />
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
       </Head>
-      <div className="p-8">
-        <div className="mt-10">
-          <img src="" alt="" />
-          <h1 className="mb-2 text-4xl">{title}</h1>
+
+      <div className="px-8 pb-4 min-h-screen flex flex-col items-center">
+        <article className="mt-14 container flex flex-col">
+          <h1 className="mb-4 text-4xl lg:text-[7rem] lg:leading-[7rem]">{title}</h1>
+          <Image className="mb-4 w-full h-56 rounded-2xl lg:h-[40rem]" src={testImg} alt={'asds'}></Image>
           <p className="text-zinc-700">{text}</p>
-        </div>
+        </article>
       </div>
     </>
   );

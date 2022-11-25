@@ -6,7 +6,7 @@ export default function Header() {
   const { login, user } = useAuthContext();
 
   return (
-    <header className="px-7 flex items-center absolute top-0 left-0 h-12 w-full">
+    <header className="px-7 container flex items-center absolute left-1/2 transform -translate-x-1/2 h-12 xl:px-0">
       <nav className="w-full flex items-center justify-between">
         <Link href={'/'}>
           <p className="italic">Rafael V.</p>

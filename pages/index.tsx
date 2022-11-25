@@ -4,7 +4,7 @@ import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
 
 import { TPostPreview } from '../types';
-import mainImg from '../public/main-img.jpg';
+import mainImg from '../public/test.webp';
 import Previews from '../components/Previews';
 
 interface HomeProps {
@@ -13,17 +13,17 @@ interface HomeProps {
 
 export default function Home({ previews }: HomeProps) {
   return (
-    <div className="px-8">
+    <div className="px-8 flex flex-col items-center xl:px-0">
       <Head>
-        <title>Blog - Home</title>
+        <title>Home - RafaV12's blog</title>
         <meta name="description" content="" />
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
       </Head>
 
       {/* Landing page */}
-      <div className="pt-20 mb-32 h-screen flex flex-col items-center lg:mb-0 lg:h-screen">
-        <h1 className="mb-4 text-5xl font-semibold italic">The life and research of a person on the Internet</h1>
-        <Image className="absolute bottom-0" src={mainImg} alt={'asds'} width={500} height={400}></Image>
+      <div className="pt-16 mb-32 container h-screen flex flex-col items-center lg:mb-0 lg:h-screen lg:flex-row">
+        <h1 className="mb-12 text-5xl font-semibold italic">The life and research of a person on the Internet</h1>
+        <Image className="w-full h-auto" src={mainImg} alt={'asds'}></Image>
       </div>
 
       <Previews previews={previews} />
