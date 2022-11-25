@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { collection, query, where, getDocs } from 'firebase/firestore';
@@ -12,7 +13,7 @@ interface PostProps {
 export default function Post({ post }: PostProps) {
   const { title, text, tags } = post;
   const router = useRouter();
-  // If prop(post) is empty, it means no post was found when getting data from server
+  // If the prop 'post' is empty, it means no post was found when getting data from server
   const isPostEmpty = (post: TPost) => Object.values(post).every((val) => typeof val === 'undefined');
 
   useEffect(() => {
@@ -22,13 +23,20 @@ export default function Post({ post }: PostProps) {
   }, [post]);
 
   return (
-    <div className="p-8">
-      <div className="mt-10">
-        <img src="" alt="" />
-        <h1 className="mb-2 text-4xl">{title}</h1>
-        <p className="text-zinc-700">{text}</p>
+    <>
+      <Head>
+        <title>{`${title} - RafaV12`}</title>
+        <meta name="description" content="" />
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+      </Head>
+      <div className="p-8">
+        <div className="mt-10">
+          <img src="" alt="" />
+          <h1 className="mb-2 text-4xl">{title}</h1>
+          <p className="text-zinc-700">{text}</p>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

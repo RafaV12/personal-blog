@@ -15,7 +15,9 @@ export default function Previews({ previews }: PreviewsProps) {
       <div>
         {previews.length === 0 && <p>No previews found</p>}
         {previews.length > 0 &&
-          previews.map((preview) => <Preview key={preview.title} title={preview.title} description={preview.description} />)}
+          previews.map((preview) => (
+            <Preview key={preview.title} title={preview.title} description={preview.description} tags={preview.tags} />
+          ))}
       </div>
     </section>
   );

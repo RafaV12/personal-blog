@@ -20,8 +20,12 @@ export default function Dashboard() {
   const onSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
     // Add a new document with a generated id.
-    const docRef = await addDoc(collection(db, 'posts'), post);
-    console.log('Document written with ID: ', docRef.id);
+    try {
+      const docRef = await addDoc(collection(db, 'posts'), post);
+      console.log('Document written with ID: ', docRef.id);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
