@@ -10,11 +10,11 @@ export default function Preview({ title, description, tags }: PreviewProps) {
   return (
     <div className="mb-8">
       <Image className="mb-4 w-full h-56 rounded-2xl lg:h-[40rem]" src={testImg} alt={'asds'}></Image>
-      <h2 className="mb-1 text-lg text-slate-900 font-semibold">
+      <h2 className="mb-0 text-lg text-slate-900 font-semibold">
         {/* Format the title with dashes instead of spaces for cosmetic purposes */}
         <Link href={`/posts/${title.replaceAll(' ', '-')}`}>{title}</Link>
       </h2>
-      <p className="mb-1 text-zinc-700">{description}</p>
+      <p className="mb-2 text-zinc-700">{description}</p>
       {/* Tags */}
       <div className="flex items-center">
         <div className="flex items-center">
