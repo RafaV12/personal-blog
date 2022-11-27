@@ -8,8 +8,8 @@ type PreviewProps = TPostPreview;
 
 export default function Preview({ title, description, tags }: PreviewProps) {
   return (
-    <div className="mb-8">
-      <Image className="mb-4 w-full h-56 rounded-2xl lg:h-[40rem]" src={testImg} alt={'asds'}></Image>
+    <div className="mb-8 w-full flex flex-col md:w-5/12 lg:w-2/4 xl:w-2/5">
+      <Image className="mb-4 w-full h-56 rounded-2xl lg:h-80" src={testImg} alt={'asds'}></Image>
       <h2 className="mb-0 text-lg text-slate-900 font-semibold">
         {/* Format the title with dashes instead of spaces for cosmetic purposes */}
         <Link href={`/posts/${title.replaceAll(' ', '-')}`}>{title}</Link>

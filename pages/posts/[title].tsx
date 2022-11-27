@@ -34,10 +34,10 @@ export default function Post({ post }: PostProps) {
       </Head>
 
       <div className="px-8 pb-4 min-h-screen flex flex-col items-center">
-        <article className="mt-14 container flex flex-col">
-          <h1 className="mb-4 text-4xl lg:text-[7rem] lg:leading-[7rem]">{title}</h1>
-          <Image className="mb-4 w-full h-56 rounded-2xl lg:h-[40rem]" src={testImg} alt={'asds'}></Image>
-          <p className="text-zinc-700">{text}</p>
+        <article className="mt-14 container flex flex-col md:items-center lg:items-start">
+          <h1 className="text-4xl lg:text-[6rem] lg:leading-[7rem]">{title}</h1>
+          <Image className="my-8 w-full h-56 rounded-2xl md:w-80 lg:h-80 lg:w-2/4 xl:w-2/5" src={testImg} alt={'asds'}></Image>
+          <p className="text-zinc-700 md:text-justify lg:text-left">{text}</p>
         </article>
       </div>
     </>
