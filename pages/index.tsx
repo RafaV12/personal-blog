@@ -6,6 +6,7 @@ import { db } from '../firebase';
 import { TPostPreview } from '../types';
 import astronautImg from '../public/astronaut.png';
 import Previews from '../components/Previews';
+import Footer from '../components/Footer';
 
 interface HomeProps {
   previews: TPostPreview[];
@@ -13,7 +14,7 @@ interface HomeProps {
 
 export default function Home({ previews }: HomeProps) {
   return (
-    <div className="px-8 flex flex-col items-center xl:px-0">
+    <div className="px-8 min-h-screen flex flex-col items-center xl:px-0">
       <Head>
         <title>Home - RafaV12's blog</title>
         <meta name="description" content="" />
@@ -35,6 +36,8 @@ export default function Home({ previews }: HomeProps) {
       </section>
 
       <Previews previews={previews} />
+
+      <Footer />
     </div>
   );
 }
@@ -45,7 +48,7 @@ export async function getServerSideProps() {
   querySnapshot.forEach((doc) => {
     // Normalize doc to be of type 'TPostPreview' and push to 'previews' array
     let { title, description, tags } = doc.data();
-    
+
     let preview: TPostPreview = {
       id: doc.id,
       title,

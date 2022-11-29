@@ -92,7 +92,7 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="px-7 pt-12">
+    <div className="px-7 pt-12 min-h-screen">
       <Head>
         <title>Write a post!</title>
         <meta name="description" content="The personal blog of RafaV12" />
