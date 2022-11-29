@@ -1,18 +1,22 @@
 import Head from 'next/head';
-import React, { SyntheticEvent, useState, useEffect, useRef, KeyboardEventHandler } from 'react';
-import { collection, addDoc } from 'firebase/firestore';
+import React, { useState, useEffect, useRef } from 'react';
+import { doc, setDoc } from 'firebase/firestore';
 
 import { db } from '../../firebase';
 import { TPost } from '../../types/index';
 
 export default function Dashboard() {
-  const inputEl = useRef(null);
+  // Get the ref to post's text input, so we can add HTML tags to it later (i.e: bold, italic and underline tags)
+  const postTextElem = useRef(null);
+  // Ref to the title's input element, so we can created the post's ID based on it.
+  const titleElem = useRef({} as HTMLInputElement);
   const [isTextBold, setIsTextBold] = useState<boolean>(false);
   const [isTextUnderlined, setIsTextUnderlined] = useState<boolean>(false);
   const [isTextItalic, setIsTextItalic] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
   const [post, setPost] = useState<TPost>({
+    id: '',
     title: '',
     description: '',
     text: '',
@@ -29,23 +33,6 @@ export default function Dashboard() {
     }
   }, [success, error]);
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
-    setPost({ ...post, [e.currentTarget.name]: e.currentTarget.value });
-  };
-
-  const onSubmit = async (e: SyntheticEvent) => {
-    e.preventDefault();
-    // Add a new document with a generated id.
-    try {
-      const docRef = await addDoc(collection(db, 'posts'), post);
-      setSuccess(true);
-    } catch (error) {
-      setError(true);
-    }
-
-    setPost({ title: '', description: '', text: '', tags: '' });
-  };
-
   const boldText = () => {
     if (isTextBold) {
       setIsTextBold(false);
@@ -54,7 +41,6 @@ export default function Dashboard() {
       setIsTextBold(true);
       setPost({ ...post, text: `${post.text} <strong>` });
     }
-    console.log(post.text);
   };
 
   const underlineText = () => {
@@ -65,7 +51,6 @@ export default function Dashboard() {
       setIsTextUnderlined(true);
       setPost({ ...post, text: `${post.text} <u>` });
     }
-    console.log(post.text);
   };
 
   const makeTextItalic = () => {
@@ -76,7 +61,6 @@ export default function Dashboard() {
       setIsTextItalic(true);
       setPost({ ...post, text: `${post.text} <i>` });
     }
-    console.log(post.text);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
@@ -84,6 +68,27 @@ export default function Dashboard() {
     if (e.key === 'Enter') {
       setPost({ ...post, text: `${post.text} <br/>` });
     }
+  };
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
+    setPost({
+      ...post,
+      id: titleElem.current.value.replaceAll(' ', '-').replaceAll(/[!?.]/g, '').toLowerCase(),
+      [e.currentTarget.name]: e.currentTarget.value,
+    });
+  };
+
+  const onSubmit = async (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    try {
+      // Add a new document in collection "posts"
+      await setDoc(doc(db, 'posts', post.id), post);
+      setSuccess(true);
+    } catch (error) {
+      setError(true);
+    }
+
+    setPost({ id: '', title: '', description: '', text: '', tags: '' });
   };
 
   return (
@@ -99,6 +104,7 @@ export default function Dashboard() {
       <form className="flex flex-col" onSubmit={onSubmit}>
         <label htmlFor="title">Post Title</label>
         <input
+          ref={titleElem}
           value={post.title}
           type="text"
           name="title"
@@ -117,7 +123,7 @@ export default function Dashboard() {
         />
 
         <label htmlFor="text">Post content</label>
-        <div className='mt-1'>
+        <div className="mt-1">
           <button type="button" onClick={boldText} className="mr-1 px-2 border">
             <strong>B</strong>
           </button>
@@ -129,7 +135,7 @@ export default function Dashboard() {
           </button>
         </div>
         <textarea
-          ref={inputEl}
+          ref={postTextElem}
           value={post.text}
           name="text"
           onKeyDown={handleKeyDown}

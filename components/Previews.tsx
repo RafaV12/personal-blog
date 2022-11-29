@@ -24,10 +24,10 @@ export default function Previews({ previews }: PreviewsProps) {
 
       {/* Post container */}
       <div className="w-full flex flex-col md:flex-row md:flex-wrap md:justify-around">
-        {previews.length === 0 && <p>No previews found</p>}
+        {previews.length === 0 && <p>No posts found</p>}
         {previews.length > 0 &&
           previews.map((preview) => (
-            <Preview key={preview.title} title={preview.title} description={preview.description} tags={preview.tags} />
+            <Preview key={preview.id} id={preview.id} title={preview.title} description={preview.description} tags={preview.tags} />
           ))}
       </div>
     </section>

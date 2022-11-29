@@ -2,12 +2,11 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
-import { collection, query, where, getDocs } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 
 import { TPost } from '../../types';
 import { db } from '../../firebase';
 import testImg from '../../public/test-img.jpg';
-import test from 'node:test';
 
 interface PostProps {
   post: TPost;
@@ -15,7 +14,7 @@ interface PostProps {
 
 export default function Post({ post }: PostProps) {
   const postElement = useRef<HTMLParagraphElement>(null);
-  const { title, text, tags } = post;
+  const { title, text } = post;
   const router = useRouter();
   // If the prop 'post' is empty, it means no post was found when getting data from server
   const isPostEmpty = (post: TPost) => Object.values(post).every((val) => typeof val === 'undefined');
@@ -50,28 +49,13 @@ export default function Post({ post }: PostProps) {
 }
 
 export async function getServerSideProps(context: any) {
-  let title: TPost['title'] = context.query.title;
-  // We get the title formated with dashes from the url query i.e: '/posts/Title-to-post'
-  // Take the dashes out so we can search for it in the database
-  title = title.replaceAll('-', ' ');
-  let post;
+  const id: TPost['id'] = context.query.id;
 
-  const q = query(collection(db, 'posts'), where('title', '==', title));
-  try {
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      const { title, description, text } = doc.data();
-      post = {
-        title,
-        description,
-        text,
-      };
-    });
-  } catch (error) {
-    console.log(error);
-  }
+  const docRef = doc(db, 'posts', id);
+  const docSnap = await getDoc(docRef);
 
-  if (post) {
+  if (docSnap.exists()) {
+    const post = docSnap.data();
     return {
       props: {
         post,
