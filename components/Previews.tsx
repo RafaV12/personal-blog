@@ -8,13 +8,13 @@ interface PreviewsProps {
 
 export default function Previews({ previews }: PreviewsProps) {
   return (
-    <section className="container flex flex-col">
+    <section className="container flex flex-col items-center">
       <div className="pb-2 mb-12 w-full flex items-center justify-between border-b-2">
         <p className="text-xl font-semibold">My posts</p>
 
         <div className="flex items-center">
           <p className="hidden md:block mr-2">Filter by</p>
-          <select className="px-2 border-2 rounded-xl" name="" id="">
+          <select className="px-2 py-0.5 border-2" name="" id="">
             <option value="">Recent</option>
             <option value="">Popularity</option>
             <option value="">Category</option>
@@ -23,7 +23,7 @@ export default function Previews({ previews }: PreviewsProps) {
       </div>
 
       {/* Post container */}
-      <div className="w-full flex flex-col md:flex-row md:flex-wrap md:justify-around">
+      <div className="min-h-[12rem] w-full flex flex-col md:w-11/12 md:flex-row md:flex-wrap md:justify-between xl:px-4 xl:w-full">
         {previews.length === 0 && <p>No posts found</p>}
         {previews.length > 0 &&
           previews.map((preview) => (

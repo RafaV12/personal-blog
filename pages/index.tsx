@@ -14,7 +14,7 @@ interface HomeProps {
 
 export default function Home({ previews }: HomeProps) {
   return (
-    <div className="px-8 min-h-screen flex flex-col items-center xl:px-0">
+    <div className="px-8 min-h-screen flex flex-col items-center">
       <Head>
         <title>Home - RafaV12's blog</title>
         <meta name="description" content="" />
@@ -22,14 +22,14 @@ export default function Home({ previews }: HomeProps) {
       </Head>
 
       {/* Landing page */}
-      <section className="pt-16 mb-32 container h-screen flex flex-col items-center md:h-auto lg:pt-0 lg:mb-0 lg:h-screen lg:flex-row">
-        <h1 className="mb-10 text-5xl font-semibold italic md:text-5xl md:text-center lg:mb-0 lg:text-start lg:text-7xl xl:text-8xl">
+      <section className="pt-16 mb-32 container flex flex-col items-center lg:pt-0 lg:px-6 lg:mb-0 lg:h-screen lg:flex-row lg:justify-between">
+        <h1 className="mb-10 text-5xl italic md:text-5xl md:text-center lg:mb-0 lg:w-2/4 lg:text-start lg:text-7xl xl:text-8xl">
           The life and research of a person on the Internet
         </h1>
 
-        <div className="flex flex-col items-center">
-          <Image className="w-4/5 md:w-2/4 lg:w-4/5 mb-4 rounded-2xl" src={astronautImg} alt="astrounaut"></Image>
-          <p className="w-4/5 text-center">
+        <div className="w-full lg:w-2/5 flex flex-col items-center">
+          <Image className="mb-4 w-4/5 md:w-2/4 lg:w-3/5" src={astronautImg} alt="astrounaut"></Image>
+          <p className="w-4/5 md:w-2/4 lg:w-3/5 text-center">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex voluptates quia, dicta aut optio possimus architecto labore.
           </p>
         </div>
