@@ -10,7 +10,7 @@ export default function Login() {
     <>
       <Head>
         <title>Login - RafaV12</title>
-        <meta name="description" content="" />
+        <meta name="robots" content="noindex" />
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
       </Head>
 

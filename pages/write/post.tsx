@@ -95,7 +95,7 @@ export default function Dashboard() {
     <div className="px-7 pt-12 min-h-screen">
       <Head>
         <title>Write a post!</title>
-        <meta name="description" content="The personal blog of RafaV12" />
+        <meta name="robots" content="noindex" />
       </Head>
 
       {success && <p className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">Post added!</p>}
